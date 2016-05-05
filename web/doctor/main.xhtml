@@ -103,6 +103,14 @@
                       items="#{checkouts.items}" selected="#{checkouts.selected}"
                       create="#{checkouts.create()}" save="#{checkouts.save()}" delete="#{checkouts.delete()}" cancel="#{checkouts.cancel()}" refresh="#{checkouts.refresh()}">
 
+                <p:column headerText="Наименование организации">
+                    #{item.organizationName}
+                </p:column>
+
+                <p:column headerText="Адрес организации">
+                    #{item.organizationAddress}
+                </p:column>
+
                 <p:column headerText="Дата заболевания" class="date">
                     <h:outputText value="#{item.outClinicDiseaseDate}">
                         <f:convertDateTime locale="ru"/>
@@ -147,6 +155,14 @@
 
                 <f:facet name="dialog">
                     <p:panelGrid columns="3" rendered="#{not empty checkouts.selected}">
+                        <p:outputLabel for="organizationName" value="Наименование организации" />
+                        <p:inputText id="organizationName" value="#{checkouts.selected.organizationName}" />
+                        <p:message for="organizationName" />
+
+                        <p:outputLabel for="organizationAddress" value="Адрес организации" />
+                        <p:inputText id="organizationAddress" value="#{checkouts.selected.organizationAddress}" />
+                        <p:message for="organizationAddress" />
+
                         <p:outputLabel for="outClinicDiseaseDate" value="Дата заболевания" />
                         <p:calendar id="outClinicDiseaseDate" value="#{checkouts.selected.outClinicDiseaseDate}" mask="true" pattern="dd.MM.yyyy" />
                         <p:message for="outClinicDiseaseDate" />

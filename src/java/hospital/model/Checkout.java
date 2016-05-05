@@ -43,6 +43,14 @@ public class Checkout implements Serializable {
     @Basic(optional = false)
     private Integer id;
 
+    @Size(max = 2147483647)
+    @Column(name = "organization_name")
+    private String organizationName;
+
+    @Size(max = 2147483647)
+    @Column(name = "organization_address")
+    private String organizationAddress;
+
     @Column(name = "out_clinic_disease_date")
     @Temporal(TemporalType.DATE)
     private Date outClinicDiseaseDate;
@@ -95,6 +103,22 @@ public class Checkout implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public String getOrganizationAddress() {
+        return organizationAddress;
+    }
+
+    public void setOrganizationAddress(String organizationAddress) {
+        this.organizationAddress = organizationAddress;
     }
 
     public Date getOutClinicDiseaseDate() {
@@ -191,10 +215,7 @@ public class Checkout implements Serializable {
             return false;
         }
         Checkout other = (Checkout) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

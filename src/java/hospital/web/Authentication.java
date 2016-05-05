@@ -66,7 +66,8 @@ public class Authentication implements Serializable {
     }
 
     public Doctor getDoctor() {
-        return user.find(login);
+        return user.find("johnd"); // TODO to be removed
+//        return user.find(login);
     }
 
     public String getLogin() {

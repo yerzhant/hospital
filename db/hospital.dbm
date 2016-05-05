@@ -19,7 +19,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <database name="hospital" sql-disabled="true" append-at-eod="true">
 	<appended-sql><![CDATA[grant select, insert, update, delete on all tables in schema core to hospital_web;
 grant usage on all sequences in schema core to hospital_web;
-]]></appended-sql>
+
+insert into core.doctors(personal_number, position, last_name, first_name, login, password) values (123, 'abc', 'dow', 'john', 'johnd', 'xxx');]]></appended-sql>
 </database>
 
 <schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
@@ -143,6 +144,12 @@ grant usage on all sequences in schema core to hospital_web;
 	<column name="checkedout_on" not-null="true">
 		<type name="date"/>
 	</column>
+	<column name="organization_name">
+		<type name="text"/>
+	</column>
+	<column name="organization_address">
+		<type name="text"/>
+	</column>
 	<constraint name="checkouts_pk" type="pk-constr" table="core.checkouts">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
@@ -164,7 +171,7 @@ grant usage on all sequences in schema core to hospital_web;
 	 src-fk-pattern="fk_{dt}_{st}"
 	 src-table="core.doctors"
 	 dst-table="core.checkouts"
-	 src-required="false" dst-required="false"
+	 src-required="true" dst-required="false"
 	upd-action="NO ACTION"
 	del-action="NO ACTION"/>
 
@@ -174,7 +181,7 @@ grant usage on all sequences in schema core to hospital_web;
 	 src-fk-pattern="fk_{dt}_{st}"
 	 src-table="core.patients"
 	 dst-table="core.checkouts"
-	 src-required="false" dst-required="false"
+	 src-required="true" dst-required="false"
 	upd-action="NO ACTION"
 	del-action="NO ACTION"/>
 
