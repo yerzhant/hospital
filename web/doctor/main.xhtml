@@ -152,6 +152,10 @@
                 <p:column headerText="Рекомендации">
                     #{item.recommendations}
                 </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Print" actionListener="#{checkouts.print}" />
+                </f:facet>
 
                 <f:facet name="dialog">
                     <p:panelGrid columns="3" rendered="#{not empty checkouts.selected}">

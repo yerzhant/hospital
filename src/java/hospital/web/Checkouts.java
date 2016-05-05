@@ -11,12 +11,16 @@ import hospital.model.Checkout;
 import hospital.model.Doctor;
 import hospital.web.event.PatientEvent;
 import hospital.web.event.Selection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -25,6 +29,14 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class Checkouts extends Controller<Checkout> {
+    
+    public void print() {
+        try {
+            bean.report();
+        } catch (SQLException | JRException ex) {
+            Logger.getLogger(Checkouts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Inject
     private CheckoutBean bean;
