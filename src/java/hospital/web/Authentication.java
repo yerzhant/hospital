@@ -57,7 +57,7 @@ public class Authentication implements Serializable {
             return null;
         }
 
-        return "/user/main.xhtml";
+        return "/doctor/main.xhtml";
     }
 
     public String logout() {

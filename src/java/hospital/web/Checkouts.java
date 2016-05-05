@@ -12,6 +12,7 @@ import hospital.model.Doctor;
 import hospital.web.event.PatientEvent;
 import hospital.web.event.Selection;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -49,7 +50,12 @@ public class Checkouts extends Controller<Checkout> {
     @Inject
     private Authentication authentication;
 
-    private final Doctor doctor = authentication.getDoctor();
+    private Doctor doctor;
+
+    @PostConstruct
+    public void setUp() {
+        doctor = authentication.getDoctor();
+    }
 
     @Inject
     private Patients patients;

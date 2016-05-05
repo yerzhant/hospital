@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -28,9 +30,9 @@ import javax.validation.constraints.Size;
  * @author yerzhan
  */
 @Entity
-@Table(name = "patients")
+@Table(schema = "core", name = "patients")
 @NamedQueries({
-    @NamedQuery(name = Patient.FILTER, query = "SELECT p FROM Patient p WHERE UPPER(p.last_name) LIKE '%' || UPPER(:filter) || '%'")
+    @NamedQuery(name = Patient.FILTER, query = "SELECT p FROM Patient p WHERE UPPER(p.lastName) LIKE '%' || UPPER(:filter) || '%'")
 })
 public class Patient implements Serializable {
 
@@ -45,8 +47,9 @@ public class Patient implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Pattern(regexp = "\\d{7}")
     @Column(name = "doc_number")
-    private int docNumber;
+    private String docNumber;
 
     @Basic(optional = false)
     @NotNull
@@ -63,6 +66,7 @@ public class Patient implements Serializable {
     @Size(max = 2147483647)
     private String surname;
 
+    @Past
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
@@ -92,11 +96,11 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public int getDocNumber() {
+    public String getDocNumber() {
         return docNumber;
     }
 
-    public void setDocNumber(int docNumber) {
+    public void setDocNumber(String docNumber) {
         this.docNumber = docNumber;
     }
 

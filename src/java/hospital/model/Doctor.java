@@ -17,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +27,7 @@ import javax.validation.constraints.Size;
  * @author yerzhan
  */
 @Entity
-@Table(name = "doctors")
+@Table(schema = "core", name = "doctors")
 @NamedQueries({
     @NamedQuery(name = Doctor.FIND_BY_LOGIN, query = "SELECT d FROM Doctor d WHERE d.login = :login")
 })
@@ -79,6 +81,8 @@ public class Doctor implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Min(0)
+    @Max(3)
     @Column(name = "left_login_tries")
     private short leftLoginTries;
 

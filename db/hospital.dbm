@@ -11,7 +11,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
       sql-disabled="true">
 </role>
 
-<database name="hospital" sql-disabled="true">
+<role name="hospital_web"
+      login="true"
+      sql-disabled="true">
+</role>
+
+<database name="hospital" sql-disabled="true" append-at-eod="true">
+	<appended-sql><![CDATA[grant select, insert, update, delete on all tables in schema core to hospital_web;
+grant usage on all sequences in schema core to hospital_web;
+]]></appended-sql>
 </database>
 
 <schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
@@ -23,7 +31,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="doctors">
 	<schema name="core"/>
 	<role name="hospital"/>
-	<position x="462" y="286"/>
+	<position x="463" y="288"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -68,12 +76,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="patients">
 	<schema name="core"/>
 	<role name="hospital"/>
-	<position x="910" y="282"/>
+	<position x="911" y="285"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
 	<column name="doc_number" not-null="true">
-		<type name="integer"/>
+		<type name="text"/>
 	</column>
 	<column name="last_name" not-null="true">
 		<type name="text"/>
@@ -107,7 +115,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="checkouts">
 	<schema name="core"/>
 	<role name="hospital"/>
-	<position x="615" y="542"/>
+	<position x="616" y="542"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -121,7 +129,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="date"/>
 	</column>
 	<column name="hospital_retirement_date">
-		<type name="text"/>
+		<type name="date"/>
 	</column>
 	<column name="full_diagnosis" not-null="true">
 		<type name="text"/>
@@ -170,4 +178,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	upd-action="NO ACTION"
 	del-action="NO ACTION"/>
 
+<permission>
+	<object name="core" type="schema"/>
+	<roles names="hospital_web"/>
+	<privileges usage="true"/>
+</permission>
 </dbmodel>

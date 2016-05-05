@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
  * @author yerzhan
  */
 @Entity
-@Table(name = "checkouts")
+@Table(schema = "core", name = "checkouts")
 @NamedQueries({
     @NamedQuery(name = Checkout.FIND_BY_PATIENT, query = "SELECT c FROM Checkout c WHERE c.patient = :patient")
 })
@@ -55,9 +55,9 @@ public class Checkout implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date hospitalEntranceDate;
 
-    @Size(max = 2147483647)
     @Column(name = "hospital_retirement_date")
-    private String hospitalRetirementDate;
+    @Temporal(TemporalType.DATE)
+    private Date hospitalRetirementDate;
 
     @Basic(optional = false)
     @NotNull
@@ -121,11 +121,11 @@ public class Checkout implements Serializable {
         this.hospitalEntranceDate = hospitalEntranceDate;
     }
 
-    public String getHospitalRetirementDate() {
+    public Date getHospitalRetirementDate() {
         return hospitalRetirementDate;
     }
 
-    public void setHospitalRetirementDate(String hospitalRetirementDate) {
+    public void setHospitalRetirementDate(Date hospitalRetirementDate) {
         this.hospitalRetirementDate = hospitalRetirementDate;
     }
 
