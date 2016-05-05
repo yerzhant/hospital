@@ -30,11 +30,13 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "patients")
 @NamedQueries({
-    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
+    @NamedQuery(name = Patient.FILTER, query = "SELECT p FROM Patient p WHERE UPPER(p.last_name) LIKE '%' || UPPER(:filter) || '%'")
 })
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String FILTER = "Patient.filter";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +78,7 @@ public class Patient implements Serializable {
     @Size(max = 2147483647)
     private String occupation;
 
-    @OneToMany(mappedBy = "patientId")
+    @OneToMany(mappedBy = "patient")
     private List<Checkout> checkoutList;
 
     public Patient() {

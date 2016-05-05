@@ -30,59 +30,61 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "checkouts")
 @NamedQueries({
-    @NamedQuery(name = "Checkout.findAll", query = "SELECT c FROM Checkout c")
+    @NamedQuery(name = Checkout.FIND_BY_PATIENT, query = "SELECT c FROM Checkout c WHERE c.patient = :patient")
 })
 public class Checkout implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String FIND_BY_PATIENT = "Checkout.findByPatient";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
-    
+
     @Column(name = "out_clinic_disease_date")
     @Temporal(TemporalType.DATE)
     private Date outClinicDiseaseDate;
-    
+
     @Column(name = "to_hospital_directed_date")
     @Temporal(TemporalType.DATE)
     private Date toHospitalDirectedDate;
-    
+
     @Column(name = "hospital_entrance_date")
     @Temporal(TemporalType.DATE)
     private Date hospitalEntranceDate;
-    
+
     @Size(max = 2147483647)
     @Column(name = "hospital_retirement_date")
     private String hospitalRetirementDate;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "full_diagnosis")
     private String fullDiagnosis;
-    
+
     @Size(max = 2147483647)
     @Column(name = "brief_history")
     private String briefHistory;
-    
+
     @Size(max = 2147483647)
     private String recommendations;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "checkedout_on")
     @Temporal(TemporalType.DATE)
     private Date checkedoutOn;
-    
+
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne
-    private Patient patientId;
-    
+    private Patient patient;
+
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
-    private Doctor doctorId;
+    private Doctor doctor;
 
     public Checkout() {
     }
@@ -159,20 +161,20 @@ public class Checkout implements Serializable {
         this.checkedoutOn = checkedoutOn;
     }
 
-    public Patient getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(Patient patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public Doctor getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     @Override

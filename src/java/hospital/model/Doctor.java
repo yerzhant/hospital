@@ -27,11 +27,15 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "doctors")
 @NamedQueries({
-    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d")
+    @NamedQuery(name = Doctor.FIND_BY_LOGIN, query = "SELECT d FROM Doctor d WHERE d.login = :login")
 })
 public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private static final short MAX_LOGIN_TRIES = 3;
+
+    public static final String FIND_BY_LOGIN = "Doctor.findByLogin";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,27 +63,37 @@ public class Doctor implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "first_name")
     private String firstName;
-    
+
     @Size(max = 2147483647)
     private String surname;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     private String login;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     private String password;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "left_login_tries")
     private short leftLoginTries;
-    
-    @OneToMany(mappedBy = "doctorId")
+
+    @OneToMany(mappedBy = "doctor")
     private List<Checkout> checkoutList;
+
+    public final void resetLeftLoginTries() {
+        leftLoginTries = MAX_LOGIN_TRIES;
+    }
+
+    public final String getFullName() {
+        String sn = getSurname();
+        sn = sn != null ? " " + sn : "";
+        return getLastName() + " " + getFirstName() + sn;
+    }
 
     public Doctor() {
     }
