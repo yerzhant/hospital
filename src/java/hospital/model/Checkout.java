@@ -30,58 +30,61 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "checkouts")
 @NamedQueries({
-    @NamedQuery(name = "Checkout.findAll", query = "SELECT c FROM Checkout c")})
+    @NamedQuery(name = "Checkout.findAll", query = "SELECT c FROM Checkout c")
+})
 public class Checkout implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
+    
     @Column(name = "out_clinic_disease_date")
     @Temporal(TemporalType.DATE)
     private Date outClinicDiseaseDate;
+    
     @Column(name = "to_hospital_directed_date")
     @Temporal(TemporalType.DATE)
     private Date toHospitalDirectedDate;
+    
     @Column(name = "hospital_entrance_date")
     @Temporal(TemporalType.DATE)
     private Date hospitalEntranceDate;
+    
     @Size(max = 2147483647)
     @Column(name = "hospital_retirement_date")
     private String hospitalRetirementDate;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "full_diagnosis")
     private String fullDiagnosis;
+    
     @Size(max = 2147483647)
     @Column(name = "brief_history")
     private String briefHistory;
+    
     @Size(max = 2147483647)
     private String recommendations;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "checkedout_on")
     @Temporal(TemporalType.DATE)
     private Date checkedoutOn;
+    
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne
     private Patient patientId;
+    
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     @ManyToOne
     private Doctor doctorId;
 
     public Checkout() {
-    }
-
-    public Checkout(Integer id) {
-        this.id = id;
-    }
-
-    public Checkout(Integer id, String fullDiagnosis, Date checkedoutOn) {
-        this.id = id;
-        this.fullDiagnosis = fullDiagnosis;
-        this.checkedoutOn = checkedoutOn;
     }
 
     public Integer getId() {
@@ -196,5 +199,4 @@ public class Checkout implements Serializable {
     public String toString() {
         return "hospital.model.Checkout[ id=" + id + " ]";
     }
-    
 }

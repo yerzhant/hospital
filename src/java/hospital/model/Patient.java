@@ -30,55 +30,56 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "patients")
 @NamedQueries({
-    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")})
+    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
+})
 public class Patient implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "doc_number")
     private int docNumber;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "last_name")
     private String lastName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "first_name")
     private String firstName;
+
     @Size(max = 2147483647)
     private String surname;
+
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+
     @Size(max = 2147483647)
     @Column(name = "home_address")
     private String homeAddress;
+
     @Size(max = 2147483647)
     @Column(name = "work_place")
     private String workPlace;
+
     @Size(max = 2147483647)
     private String occupation;
+
     @OneToMany(mappedBy = "patientId")
     private List<Checkout> checkoutList;
 
     public Patient() {
-    }
-
-    public Patient(Integer id) {
-        this.id = id;
-    }
-
-    public Patient(Integer id, int docNumber, String lastName, String firstName) {
-        this.id = id;
-        this.docNumber = docNumber;
-        this.lastName = lastName;
-        this.firstName = firstName;
     }
 
     public Integer getId() {
@@ -185,5 +186,4 @@ public class Patient implements Serializable {
     public String toString() {
         return "hospital.model.Patient[ id=" + id + " ]";
     }
-    
 }

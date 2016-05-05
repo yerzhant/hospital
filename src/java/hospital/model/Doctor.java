@@ -27,7 +27,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "doctors")
 @NamedQueries({
-    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d")})
+    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d")
+})
 public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,21 +82,6 @@ public class Doctor implements Serializable {
     private List<Checkout> checkoutList;
 
     public Doctor() {
-    }
-
-    public Doctor(Integer id) {
-        this.id = id;
-    }
-
-    public Doctor(Integer id, int personalNumber, String position, String lastName, String firstName, String login, String password, short leftLoginTries) {
-        this.id = id;
-        this.personalNumber = personalNumber;
-        this.position = position;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.login = login;
-        this.password = password;
-        this.leftLoginTries = leftLoginTries;
     }
 
     public Integer getId() {
@@ -202,5 +188,4 @@ public class Doctor implements Serializable {
     public String toString() {
         return "hospital.model.Doctor[ id=" + id + " ]";
     }
-
 }
