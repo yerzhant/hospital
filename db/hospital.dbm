@@ -20,7 +20,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<appended-sql><![CDATA[grant select, insert, update, delete on all tables in schema core to hospital_web;
 grant usage on all sequences in schema core to hospital_web;
 
-insert into core.doctors(personal_number, position, last_name, first_name, login, password) values (123, 'abc', 'dow', 'john', 'johnd', 'xxx');]]></appended-sql>
+insert into core.doctors(personal_number, position, last_name, first_name, surname, login, password) values (123, 'doctor', 'Петров', 'Петр', 'Петрович', 'петровп', '65438B79D15F730AAF908B1955B1AA1A8E272B54F0B38461B197E23180178D3B');]]></appended-sql>
 </database>
 
 <schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
